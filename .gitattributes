@@ -1,0 +1,2 @@
+# Los espacios finales conservan el lienzo y la alineación de los banners ASCII.
+assets/*.txt -whitespace

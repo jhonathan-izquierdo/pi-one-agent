@@ -1,0 +1,22 @@
+{
+  "name": "pi-agent-extensions-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Extensiones y experimentos para Pi Coding Agent",
+  "keywords": [
+    "pi-package"
+  ],
+  "license": "UNLICENSED",
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "pi": {
+    "extensions": [
+      "./extensions/*.ts"
+    ],
+    "themes": [
+      "./themes/halcy-one.json"
+    ]
+  }
+}

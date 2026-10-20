@@ -1,0 +1,11 @@
+# Local Pi settings and runtime state (may contain environment-specific data)
+.pi/
+
+# Dependencies and build output
+node_modules/
+dist/
+
+# Local credentials
+.env
+.env.*
+!.env.example
