@@ -8,10 +8,7 @@ function loadLogo(path: string): string[] {
 }
 
 const officialLogo = loadLogo("../assets/pi-logo-2.txt");
-const logos = {
-  "pi-logo": { lines: officialLogo, colorEveryGlyph: true, maxHeight: 32 },
-  "pi-logo-2": { lines: officialLogo, colorEveryGlyph: true, maxHeight: 32 },
-};
+const officialLogoMaxHeight = 32;
 
 // Neon hues sampled from the supplied banner: cyan Pi mark flowing into blue, violet, and magenta text.
 const neonStops = [
@@ -40,7 +37,6 @@ function renderLogo(
   lines: string[],
   startColumn: number,
   width: number,
-  colorEveryGlyph: boolean,
 ): string[] {
   const logoWidth = Math.max(...lines.map((line) => visibleWidth(line)));
   return lines.map((line) => {
@@ -64,9 +60,7 @@ function renderLogo(
       const leftPadding = Math.max(0, startColumn - column);
       const rightPadding = Math.max(0, column + glyphWidth - (startColumn + width));
       const visibleGlyph = " ".repeat(leftPadding) + glyph + " ".repeat(rightPadding);
-      const nextColor = (colorEveryGlyph ? glyph !== " " : glyph === "█")
-        ? colorAt(column, logoWidth)
-        : undefined;
+      const nextColor = glyph !== " " ? colorAt(column, logoWidth) : undefined;
       if (
         nextColor?.r !== activeColor?.r ||
         nextColor?.g !== activeColor?.g ||
@@ -90,52 +84,46 @@ export default function (pi: ExtensionAPI) {
     }
   });
 
-  for (const [command, config] of Object.entries(logos)) {
-    const logoWidth = Math.max(...config.lines.map((line) => visibleWidth(line)));
-    const description = command === "pi-logo"
-      ? "Muestra el logo oficial ASCII neón de Pi-One Agent"
-      : "Alias del logo oficial ASCII neón de Pi-One Agent";
+  const logoWidth = Math.max(...officialLogo.map((line) => visibleWidth(line)));
+  pi.registerCommand("pi-logo", {
+    description: "Muestra el logo oficial ASCII neón de Pi-One Agent",
+    handler: async (_args, ctx) => {
+      if (ctx.mode !== "tui") {
+        ctx.ui.notify(officialLogo.join("\n"), "info");
+        return;
+      }
 
-    pi.registerCommand(command, {
-      description,
-      handler: async (_args, ctx) => {
-        if (ctx.mode !== "tui") {
-          ctx.ui.notify(config.lines.join("\n"), "info");
-          return;
-        }
-
-        await ctx.ui.custom((_tui, theme, _keybindings, done) => {
-          let startColumn = 0;
-          return {
-            render: (width: number) => {
-              const viewportWidth = Math.max(1, Math.min(width, logoWidth));
-              startColumn = Math.min(startColumn, Math.max(0, logoWidth - viewportWidth));
-              return [
-                ...renderLogo(theme, config.lines, startColumn, viewportWidth, config.colorEveryGlyph),
-                theme.fg("dim", "←/→ desplazar · Enter/Esc cerrar"),
-              ];
-            },
-            invalidate: () => {},
-            handleInput: (data: string) => {
-              if (matchesKey(data, "enter") || matchesKey(data, "escape")) {
-                done(undefined);
-              } else if (matchesKey(data, "left")) {
-                startColumn = Math.max(0, startColumn - 12);
-              } else if (matchesKey(data, "right")) {
-                startColumn = Math.min(logoWidth - 1, startColumn + 12);
-              }
-            },
-          };
-        }, {
-          overlay: true,
-          overlayOptions: {
-            width: "95%",
-            maxHeight: config.maxHeight,
-            anchor: "center",
-            margin: 1,
+      await ctx.ui.custom((_tui, theme, _keybindings, done) => {
+        let startColumn = 0;
+        return {
+          render: (width: number) => {
+            const viewportWidth = Math.max(1, Math.min(width, logoWidth));
+            startColumn = Math.min(startColumn, Math.max(0, logoWidth - viewportWidth));
+            return [
+              ...renderLogo(theme, officialLogo, startColumn, viewportWidth),
+              theme.fg("dim", "←/→ desplazar · Enter/Esc cerrar"),
+            ];
           },
-        });
-      },
-    });
-  }
+          invalidate: () => {},
+          handleInput: (data: string) => {
+            if (matchesKey(data, "enter") || matchesKey(data, "escape")) {
+              done(undefined);
+            } else if (matchesKey(data, "left")) {
+              startColumn = Math.max(0, startColumn - 12);
+            } else if (matchesKey(data, "right")) {
+              startColumn = Math.min(logoWidth - 1, startColumn + 12);
+            }
+          },
+        };
+      }, {
+        overlay: true,
+        overlayOptions: {
+          width: "95%",
+          maxHeight: officialLogoMaxHeight,
+          anchor: "center",
+          margin: 1,
+        },
+      });
+    },
+  });
 }
