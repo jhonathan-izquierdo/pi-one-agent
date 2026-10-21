@@ -45,6 +45,7 @@ El logo oficial es [`assets/pi-logo-2.txt`](assets/pi-logo-2.txt). El comando `/
 La extensión principal adapta Pi con renderizado de herramientas y diffs en modos normal/compacto, cabecera de inicio Pi-One, pie con métricas de tokens/coste/git, configuración interactiva, vista de contexto, referencias a sesiones/subagentes y compatibilidad fullscreen/ratón.
 
 - `/pi-style` abre la configuración; admite `on`, `compact`, `off` y `status`.
+- `/pi-one-doctor` revisa versiones de Pi/Node, archivos y temas del paquete, dependencias y validez del JSON de configuración. Es de solo lectura.
 - `/context` inspecciona el contexto disponible.
 - `/pi-logo` muestra el logo ASCII completo con gradiente.
 - La configuración se guarda en `~/.pi/agent/pi-one-agent.json`.
