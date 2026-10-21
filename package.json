@@ -1,22 +1,46 @@
 {
-  "name": "pi-agent-extensions-lab",
-  "version": "0.1.0",
+  "name": "pi-one-agent",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
-  "description": "Extensiones y experimentos para Pi Coding Agent",
+  "description": "Pi-One Agent: personalización TUI y extensiones para Pi Coding Agent",
   "keywords": [
-    "pi-package"
+    "pi-package",
+    "pi-extension",
+    "pi-coding-agent"
   ],
   "license": "UNLICENSED",
+  "contributors": [
+    "Pi-One Agent contributors",
+    "minuque (pi-cc-extensions)"
+  ],
+  "dependencies": {
+    "@shikijs/cli": "^4.0.2",
+    "grok-mermaid": "^0.2.2",
+    "jiti": "^2.7.0"
+  },
   "peerDependencies": {
-    "@earendil-works/pi-coding-agent": "*"
+    "@earendil-works/pi-ai": "*",
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*"
+  },
+  "scripts": {
+    "test": "node --test tests/**/*.test.ts",
+    "typecheck": "tsc --noEmit"
   },
   "pi": {
     "extensions": [
-      "./extensions/*.ts"
+      "./extensions/index.ts",
+      "./extensions/pi-logo.ts"
     ],
     "themes": [
-      "./themes/halcy-one.json"
+      "./themes/halcy-one.json",
+      "./themes/pi-one-dark.json",
+      "./themes/pi-one-light.json"
     ]
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "typescript": "^5.9.3"
   }
 }

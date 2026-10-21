@@ -15,4 +15,4 @@ printf '%s\n' "Instalando Pi-One Agent desde GitHub..."
 pi install "$package_source"
 
 printf '%s\n' "Pi-One Agent fue instalado para tu perfil personal de Pi."
-printf '%s\n' "Abre o reinicia Pi para cargar el logo oficial y el tema Halcy-one."
+printf '%s\n' "Abre o reinicia Pi para cargar la personalización Pi-One y el estilo de herramientas."

@@ -12,4 +12,4 @@ Write-Host "Instalando Pi-One Agent desde GitHub..." -ForegroundColor Cyan
 pi install $packageSource
 
 Write-Host "Pi-One Agent fue instalado para tu perfil personal de Pi." -ForegroundColor Green
-Write-Host "Abre o reinicia Pi para cargar el logo oficial y el tema Halcy-one."
+Write-Host "Abre o reinicia Pi para cargar la personalización Pi-One y el estilo de herramientas."
