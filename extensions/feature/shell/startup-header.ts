@@ -61,9 +61,9 @@ function renderOfficialLogoLine(
 }
 
 // Branded startup message, replacing Pi's generic hero line.
-const HERO_PREFIX = "Your Pi, ";
-const HERO_HIGHLIGHT = "your way";
-const HERO_SUFFIX = "."
+const HERO_PREFIX = "Más valor con ";
+const HERO_HIGHLIGHT = "menos esfuerzo";
+const HERO_SUFFIX = "";
 
 
 function getVisibleLength(text: string): number {

@@ -40,7 +40,7 @@ const theme = {
 const stripAnsi = (text: string) => text.replace(/\u001b\[[0-9;]*m/g, "");
 const visibleWidth = (line: string) => [...stripAnsi(line)].length;
 
-const HERO_TEXT = "Your Pi, your way.";
+const HERO_TEXT = "Más valor con menos esfuerzo";
 
 const OFFICIAL_LOGO = readFileSync(new URL("../assets/pi-logo-2.txt", import.meta.url), "utf8")
 	.replace(/\r\n/g, "\n")
